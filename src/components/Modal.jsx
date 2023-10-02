@@ -24,9 +24,9 @@ const Modal = ({ product }) => {
 const Model = ({ fbx, colorMap }) => {
     if(colorMap) 
     {
-        colorMap.wrapS = THREE.CanvasTexture.RepeatWrapping;
-        colorMap.wrapT = THREE.CanvasTexture.RepeatWrapping;
-        colorMap.repeat.set(2, 2); 
+        colorMap.wrapS = THREE.CanvasTexture.DEFAULT_ANISOTROPY_COLORMAP;
+        colorMap.wrapT = THREE.CanvasTexture.DEFAULT_ANISOTROPY_COLORMAP;
+        colorMap.repeat.set(0.02,0.02); 
     }
         const materialWithTexture = new MeshStandardMaterial({
             map: colorMap,
