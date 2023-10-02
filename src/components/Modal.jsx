@@ -6,7 +6,7 @@ import { OrbitControls } from "@react-three/drei";
 import * as THREE from "three";
 
 const Modal = ({ product }) => {
-    const fbx = useLoader(FBXLoader, "./Shower+Base.fbx");
+    const fbx = useLoader(FBXLoader, "/Shower+Base.fbx");
     const colorMap = product && useLoader(TextureLoader, product.img);
 
     return (
