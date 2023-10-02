@@ -30,8 +30,8 @@ const Model = ({ fbx, colorMap }) => {
     }
         const materialWithTexture = new MeshStandardMaterial({
             map: colorMap,
-            roughness: 0.2,
-            metalness: 0.6
+            roughness: colorMap ? 0 : 0.2,
+            metalness: colorMap ? 0 : 0.6
         });
 
         fbx.children.forEach((mesh) => {
