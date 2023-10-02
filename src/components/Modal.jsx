@@ -11,8 +11,11 @@ const Modal = ({ product }) => {
 
     return (
         <Canvas className="canvas">
-            <OrbitControls enableZoom={true} />
-            <ambientLight intensity={1} />
+            <OrbitControls
+             enableZoom={true}
+            dampingFactor={0.02} 
+             />
+            <ambientLight intensity={0.85} />
             <directionalLight position={[20, 500, 2]} intensity={1} />
             <group rotation={[0.5, -0.7, 0]}>
                 <Model fbx={fbx} colorMap={colorMap} />
@@ -30,8 +33,8 @@ const Model = ({ fbx, colorMap }) => {
     }
         const materialWithTexture = new MeshStandardMaterial({
             map: colorMap,
-            roughness: colorMap ? 0 : 0.2,
-            metalness: colorMap ? 0 : 0.6
+            roughness: colorMap ? 0.85 : 0.2,
+            metalness: colorMap ? 0 : 0.6,
         });
 
         fbx.children.forEach((mesh) => {
