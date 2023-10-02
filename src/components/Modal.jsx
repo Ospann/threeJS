@@ -3,31 +3,45 @@ import { TextureLoader } from "three/src/loaders/TextureLoader";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader";
 import { MeshStandardMaterial } from "three";
 import { OrbitControls } from "@react-three/drei";
+import * as THREE from "three";
 
 const Modal = ({ product }) => {
     const fbx = useLoader(FBXLoader, "./Shower+Base.fbx");
-    const colorMap = useLoader(TextureLoader, product.img);
-
-    const materialWithTexture = new MeshStandardMaterial({
-        map: colorMap,
-        roughness: 0.1,
-        metalness: 0.01,
-    });
-
-    fbx.children.forEach((mesh) => {
-        mesh.material = materialWithTexture;
-    });
+    const colorMap = product && useLoader(TextureLoader, product.img);
 
     return (
         <Canvas className="canvas">
-            <OrbitControls enableZoom={false} />
-            <ambientLight intensity={0.5} />
-            <directionalLight position={[-2, 0, 2]} intensity={1} />
-            <group rotation={[90, 0, 0]}>
-                <primitive object={fbx} scale={0.3} position={[0, 0, 0]} />
+            <OrbitControls enableZoom={true} />
+            <ambientLight intensity={0.6} />
+            <directionalLight position={[20, 500, 2]} intensity={1} />
+            <group rotation={[0.5, -0.7, 0]}>
+                <Model fbx={fbx} colorMap={colorMap} />
             </group>
         </Canvas>
     );
 }
 
+const Model = ({ fbx, colorMap }) => {
+    if(colorMap) 
+    {
+        colorMap.magFilter = THREE.LinearFilter;
+    }
+        const materialWithTexture = new MeshStandardMaterial({
+            map:colorMap,
+            roughness: 0.5,
+            metalness: 0.6,
+            transparent:true,
+            clipIntersection:true,
+            stencilWrite:true,
+            side: THREE.FrontSide,
+            clipShadows:true,
+        });
+
+        fbx.children.forEach((mesh) => {
+            console.log(mesh.material);
+            mesh.material = materialWithTexture;
+        });
+
+    return <primitive object={fbx} scale={0.4} position={[0, 0, 0]} />;
+}
 export default Modal;

@@ -2,6 +2,7 @@ import InputForm from "./components/InputForm"
 import Modal from "./components/Modal"
 import { useState,Suspense  } from "react";
 import { Box } from "@chakra-ui/react";
+import Loader from "./components/Loader";
 const App = () => {
 
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -13,12 +14,10 @@ const App = () => {
 
   return (
     <Box className='page'>
-      <InputForm onProductChange={handleProductChange} />
-      {selectedProduct && (
-        <Suspense fallback={<div>Loading...</div>}> {/* Use Suspense */}
-          <Modal product={selectedProduct} />
+    <InputForm onProductChange={handleProductChange} />
+        <Suspense fallback={<Loader />}>
+        <Modal product={selectedProduct} />
         </Suspense>
-      )}
     </Box>
   )
 }

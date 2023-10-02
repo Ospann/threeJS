@@ -3,27 +3,31 @@ import Data from "../utils/consts";
 import { useState } from "react";
 
 const InputForm = ({ onProductChange }) => {
-
+    
     const [selectedLine, setSelectedLine] = useState("");
     const [selectedProduct, setSelectedProduct] = useState("");
+    const [selectedShowerPan, setSelectedShowerPan] = useState("");
 
     const handleLineChange = (event) => {
         setSelectedLine(event.target.value);
         setSelectedProduct("");
     };
 
-    const handleProductChange = (event) => {
-        const productName = event.target.value;
-        setSelectedProduct(productName);
+    const handleProductChange = ({target}) => {
+        setSelectedProduct(target.value);
 
-        // Find and send the selected product info to the parent component
-        const productInfo = Data[selectedLine].find(
-            (product) => product.name === productName
+
+    };
+
+    const handleShowerPanChange = ({target}) => {
+        const productInfo = Data[selectedLine][selectedProduct].find(
+            (product) => product.name === target.value
         );
 
         if (productInfo) {
             onProductChange(productInfo);
         }
+        setSelectedShowerPan(target.value);
     };
 
     return (
@@ -41,14 +45,19 @@ const InputForm = ({ onProductChange }) => {
                 onChange={handleProductChange}
                 value={selectedProduct}
             >
-                {selectedLine && Data[selectedLine].map((product) => (
-                    <option key={product.name} value={product.name}>
-                        {product.name}
+                {selectedLine && Object.keys(Data[selectedLine]).map((lineProduct) => (
+                    <option key={lineProduct} value={lineProduct}>
+                        {lineProduct}
                     </option>
                 ))}
             </Select>
-            <Select placeholder="Select shower Pan">
-
+            <Select 
+            onChange={handleShowerPanChange}
+            value={selectedShowerPan}
+            placeholder="Select shower Pan">
+            {selectedProduct && Data[selectedLine][selectedProduct].map(product=>(
+                    <option key={product.name} value={product.name}>{product.name}</option>
+            ))}
             </Select>
             <Input placeholder="Store" />
             <Input placeholder="Salesperson’s Name" />
