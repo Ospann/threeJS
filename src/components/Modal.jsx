@@ -24,21 +24,17 @@ const Modal = ({ product }) => {
 const Model = ({ fbx, colorMap }) => {
     if(colorMap) 
     {
-        colorMap.magFilter = THREE.LinearFilter;
+        colorMap.wrapS = THREE.CanvasTexture.RepeatWrapping;
+        colorMap.wrapT = THREE.CanvasTexture.RepeatWrapping;
+        colorMap.repeat.set(2, 2); 
     }
         const materialWithTexture = new MeshStandardMaterial({
-            map:colorMap,
-            roughness: 0.5,
-            metalness: 0.6,
-            transparent:true,
-            clipIntersection:true,
-            stencilWrite:true,
-            side: THREE.FrontSide,
-            clipShadows:true,
+            map: colorMap,
+            roughness: 0.01,
+            metalness: 0.4
         });
 
         fbx.children.forEach((mesh) => {
-            console.log(mesh.material);
             mesh.material = materialWithTexture;
         });
 
