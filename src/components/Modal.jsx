@@ -12,7 +12,7 @@ const Modal = ({ product }) => {
     return (
         <Canvas className="canvas">
             <OrbitControls enableZoom={true} />
-            <ambientLight intensity={0.6} />
+            <ambientLight intensity={1} />
             <directionalLight position={[20, 500, 2]} intensity={1} />
             <group rotation={[0.5, -0.7, 0]}>
                 <Model fbx={fbx} colorMap={colorMap} />
