@@ -26,12 +26,12 @@ const Model = ({ fbx, colorMap }) => {
     {
         colorMap.wrapS = THREE.CanvasTexture.DEFAULT_ANISOTROPY_COLORMAP;
         colorMap.wrapT = THREE.CanvasTexture.DEFAULT_ANISOTROPY_COLORMAP;
-        colorMap.repeat.set(0.02,0.02); 
+        colorMap.repeat.set(0.1,0.1); 
     }
         const materialWithTexture = new MeshStandardMaterial({
             map: colorMap,
-            roughness: 0.01,
-            metalness: 0.4
+            roughness: 0.2,
+            metalness: 0.6
         });
 
         fbx.children.forEach((mesh) => {
